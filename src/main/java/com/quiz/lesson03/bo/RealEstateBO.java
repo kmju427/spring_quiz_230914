@@ -30,9 +30,24 @@ public class RealEstateBO {
 	
 	// QUIZ01 - 3
 	// input : area, price
-	// output : List<RealEstate>
+	// output : List<RealEstate> (있거나 혹은 [])
+	// getRealEstateListByAreaAndPrice or getRealEstateListByAreaPrice (And 생략해도 된다.)
 	public List<RealEstate> getRealEstateListByAreaAndPrice(int area, int price) {
 		return realEstateMapper.selectRealEstateListByAreaAndPrice(area, price);
+	}
+	
+	// QUIZ02 - 1
+	// input : RealEstate
+	// output : 성공한 행의 개수(int)
+	public int addRealEstate(RealEstate realEstate) {
+		return realEstateMapper.insertRealEstate(realEstate);
+	}
+	
+	// QUIZ02 - 2
+	// input : addRealEstateAsField(realtorId, "썅떼빌리버 오피스텔 814호", 45, "월세", 100000, 120)
+	// output : 성공한 행의 개수(int)
+	public int addRealEstateAsField(int realtorId, String address, int area, String type, int price, Integer rentPrice) {
+		return realEstateMapper.insertRealEstateAsField(realtorId, address, area, type, price, rentPrice) ;
 	}
 	
 } // public class EstateBO
