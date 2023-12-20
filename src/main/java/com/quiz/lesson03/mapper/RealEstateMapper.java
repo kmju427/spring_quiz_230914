@@ -46,4 +46,17 @@ public interface RealEstateMapper {
 			@Param("price") int price, 
 			@Param("rentPrice") Integer rentPrice);
 	
+	// QUIZ03 - 1
+	// input : id, type, price
+	// output : 성공한 행의 개수(int)
+	public int updateRealEstateById(
+			@Param("id") int id, 
+			@Param("type") String type, 
+			@Param("price") int price);
+	
+	// QUIZ04 - 1
+	// input : id
+	// output : 성공한 행의 개수(int)
+	public int deleteRealEstateById(int id);
+	
 } // public interface EstateMapper
