@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,25 +25,25 @@
 					<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Emblem_of_the_Government_of_the_Republic_of_Korea.svg/800px-Emblem_of_the_Government_of_the_Republic_of_Korea.svg.png" width="25">
 					<span class="text-white font-weight-bold ml-2">기상청</span>
 				</div>
-				
+
 				<%-- 메뉴 --%>
-				<%-- flex-column : 세로 메뉴 --%>
+				<%-- flex-column: 세로 메뉴 --%>
 				<ul class="nav flex-column mt-4">
 					<li class="nav-item">
 						<a href="/weather-history/weather-list-view" class="nav-link menu-font">날씨</a>
 					</li>
 					<li class="nav-item">
-						<a href="/weather-history/add-weather-view" class="nav-link menu-font">날씨입력</a>
+						<a href="/weather-history/add-weather-view" class="nav-link menu-font">날씨 입력</a>
 					</li>
 					<li class="nav-item">
-						<a href="#" class="nav-link menu-font">테마날씨</a>
+						<a href="#" class="nav-link menu-font">테마 날씨</a>
 					</li>
 					<li class="nav-item">
 						<a href="#" class="nav-link menu-font">관측 기후</a>
 					</li>
 				</ul>
 			</nav>
-			
+
 			<%-- 날씨 히스토리 --%>
 			<section class="weather-history col-10 mt-3 ml-5">
 				<h3>과거 날씨</h3>
@@ -57,24 +59,44 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
+						<c:forEach items="${weatherHistoryList}" var="history">
+							<tr>
+								<td><fmt:formatDate value="${history.date}" pattern="yyyy년 M월 d일" /></td>
+								<td>
+									<c:choose>
+										<c:when test="${history.weather eq '맑음'}">
+											<img src="/img/sunny.jpg" alt="맑음">
+										</c:when>
+										<c:when test="${history.weather eq '비'}">
+											<img src="/img/rainy.jpg" alt="비">
+										</c:when>
+										<c:when test="${history.weather eq '구름조금'}">
+											<img src="/img/partlyCloudy.jpg" alt="구름조금">
+										</c:when>
+										<c:when test="${history.weather eq '흐림'}">
+											<img src="/img/cloudy.jpg" alt="흐림">
+										</c:when>
+										<c:otherwise>${history.weather}</c:otherwise>
+									</c:choose>
+								</td>
+								<td>${history.temperatures}℃</td>
+								<td>${history.precipitation}mm</td>
+								<td>${history.microDust}</td>
+								<td>${history.windSpeed}km/h</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</section>
 		</div>
+		
+		<%-- footer --%>
 		<footer class="d-flex align-items-center">
 			<div class="footer-logo ml-4">
 				<img class="foot-logo-image" src="https://www.weather.go.kr/w/resources/image/foot_logo.png" width="120">
 			</div>
 			<div class="copyright ml-4">
-				<small class="tex-secondary">
+				<small class="text-secondary"> 
 					(07062) 서울시 동작구 여의대방로16길 61 <br>
 					Copyright@20XX KMA. All Rights RESERVED.
 				</small>
