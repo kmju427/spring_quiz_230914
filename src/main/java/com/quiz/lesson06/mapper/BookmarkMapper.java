@@ -10,6 +10,7 @@ import com.quiz.lesson06.domain.Bookmark;
 @Repository
 public interface BookmarkMapper {
 
+	// Quiz01
 	// input : name, url / output : X
 	public void insertBookmark(
 			@Param("name") String name, 
@@ -17,5 +18,12 @@ public interface BookmarkMapper {
 	
 	// input : X / output : BookmarkList
 	public List<Bookmark> selectBookmarkList();
+	
+	// Quiz02
+	// input : url / output : List<Bookmark>
+	public List<Bookmark> selectBookmarkListByUrl(String url);
+	
+	// input : id / output : 삭제된 행의 수
+	public int deleteBookmarkById(int id);
 	
 } // public interface BookmarkMapper
