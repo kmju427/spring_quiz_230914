@@ -19,4 +19,19 @@ public class BookingBO {
 		return bookingMapper.selectBookingList();
 	}
 	
+	// input : id / output : 삭제 성공한 행의 수
+	public int deleteBookingById(int id) {
+		return bookingMapper.deleteBookingById(id);
+	}
+	
+	// input : 파라미터들 / output : X
+	public void addBooking(String name, String date, int day, int headcount, String phoneNumber) {
+		bookingMapper.insertBooking(name, date, day, headcount, phoneNumber);
+	}
+	
+	// input : name, phoneNumber / output : 일치하는 데이터 or X
+	public Booking getBookingByNamePhoneNumber(String name, String phoneNumber) {
+		return bookingMapper.selectBookingByNamePhoneNumber(name, phoneNumber);
+	}
+	
 } // public class BookingBO

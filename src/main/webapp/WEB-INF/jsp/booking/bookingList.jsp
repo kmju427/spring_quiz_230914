@@ -16,10 +16,10 @@
 <link rel="stylesheet" type="text/css" href="/css/booking/style.css">
 </head>
 <body>
-	<div class="container">
+	<div id="wrap" class="container">
 		<!-- header -->
 		<header class="d-flex justify-content-center align-items-center">
-			<div>통나무 팬션</div>
+			<div class="display-4">통나무 팬션</div>
 		</header>
 		
 		<!-- nav -->
@@ -27,15 +27,13 @@
 			<ul class="nav nav-fill">
 				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">팬션소개</a></li>
 				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">객실보기</a></li>
-				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">예약안내</a></li>
-				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">커뮤니티</a></li>
+				<li class="nav-item"><a href="/booking/make-booking-view" class="nav-link text-white font-weight-bold">예약하기</a></li>
+				<li class="nav-item"><a href="/booking/booking-list-view" class="nav-link text-white font-weight-bold">예약목록</a></li>
 			</ul>
 		</nav>
 		
-		<div class="text-center">
-			<div>
-				<h1>예약 목록 보기</h1>
-			</div>
+		<section class="content py-4">
+			<h2 class="text-center font-weight-bold m-4">예약 목록 보기</h2>
 			
 			<table class="table text-center">
 				<thead>
@@ -65,20 +63,20 @@
 									<c:when test="${booking.state eq '확정'}">
 										<span class="text-success">${booking.state}</span>
 									</c:when>
-									<c:otherwise>
-										${booking.state}
-									</c:otherwise>
+									<c:when test="${booking.state eq '취소'}">
+										<span class="text-danger">${booking.state}</span>
+									</c:when>
 								</c:choose>
 							</td>
-							<td></td>
+							<td><button type="button" class="del-btn btn btn-danger" data-booking-id="${booking.id}">삭제</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
-		</div>
+		</section>
 		
 		<!-- footer -->
-		<footer class="d-flex align-items-center pl-3">
+		<footer>
 			<small class="text-secondary">
 				제주특별자치도 제주시 애월읍<br>
                 사업자등록번호: 111-22-255222 / 농어촌민박사업자지정 / 대표:김통목<br>
@@ -86,5 +84,38 @@
 			</small>
 		</footer>
 	</div>
+	
+<script>
+	$(document).ready(function() {
+		// 삭제 버튼 클릭
+		$(".del-btn").on("click", function() {
+			// alert("삭제");
+			let id = $(this).data('booking-id');
+			// alert(id);
+			
+			$.ajax({
+				// request
+				type:"delete"
+				, url:"/booking/delete-booking"
+				, data:{"id":id}
+				
+				// response
+				, success:function(data) {
+					// {"code":200, "result":"성공"}
+					if (data.result == "성공") {
+						alert("삭제 성공");
+						location.reload(true);
+					} else {
+						// {"code":500, "error_message":"삭제하는데 실패했습니다."}
+						alert(data.error_message);
+					}
+				}
+				, error:function(request, status, error) {
+					alert("삭제하는데 실패했습니다. 관리자에게 문의해주세요.");
+				}
+			});
+		});
+	});
+</script>
 </body>
 </html>
