@@ -94,15 +94,16 @@
 				
 				// response
 				, success:function(data) {
-					// {"code":200, "result":"성공"}
+					// {"code":200, "result":{"name":"강하늘", ...}
+					// data.result.date.substring(0, 10)
 					if (data.code == 200) {
-						alert("이름 : " + data.booking.name + 
-							  "\n날짜 : " + data.booking.date + 
-							  "\n일수 : " + data.booking.day + 
-							  "\n인원 : " + data.booking.headcount +
-							  "\n상태 : " + data.booking.state);
+						alert("이름 : " + data.result.name + 
+							  "\n날짜 : " + data.result.date.slice(0, 10) + 
+							  "\n일수 : " + data.result.day + 
+							  "\n인원 : " + data.result.headcount +
+							  "\n상태 : " + data.result.state);
 					} else {
-						// {"code":500, "error_message":"삭제하는데 실패했습니다."}
+						// {"code":500, "error_message":"예약내역이 존재하지 않습니다."}
 						alert(data.error_message);
 					}
 				}

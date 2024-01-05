@@ -24,8 +24,8 @@ public interface BookingMapper {
 			@Param("headcount") int headcount, 
 			@Param("phoneNumber") String phoneNumber);
 	
-	// input : name, phoneNumber / output : 일치하는 데이터 or X
-	public Booking selectBookingByNamePhoneNumber(
+	// input : name, phoneNumber / output : List<Booking>
+	public List<Booking> selectBookingListByNamePhoneNumber(
 			@Param("name") String name, 
 			@Param("phoneNumber") String phoneNumber);
 	

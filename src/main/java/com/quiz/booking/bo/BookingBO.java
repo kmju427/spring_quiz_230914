@@ -31,7 +31,16 @@ public class BookingBO {
 	
 	// input : name, phoneNumber / output : 일치하는 데이터 or X
 	public Booking getBookingByNamePhoneNumber(String name, String phoneNumber) {
-		return bookingMapper.selectBookingByNamePhoneNumber(name, phoneNumber);
+		// 없는 경우 : [], 있는 경우 : [...]
+		List<Booking> bookingList = bookingMapper.selectBookingListByNamePhoneNumber(name, phoneNumber);
+		
+		// 없으면 Null, 있으면 객체
+//		if (bookingList.isEmpty()) {
+//			return null;
+//		} 
+//		return bookingList.get(bookingList.size() - 1);
+		
+		return bookingList.isEmpty() ? null : bookingList.get(bookingList.size() - 1);
 	}
 	
 } // public class BookingBO

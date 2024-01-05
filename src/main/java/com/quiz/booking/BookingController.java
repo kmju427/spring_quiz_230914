@@ -97,10 +97,18 @@ public class BookingController {
 		// select DB
 		Booking booking = bookingBO.getBookingByNamePhoneNumber(name, phoneNumber);
 		
+		// {"code":200, "result":booking 객체}
+		// {"code":200, "result":{"name":"강하늘", ...}
 		Map<String, Object> result = new HashMap<>();
-		result.put("code", 200);
-		result.put("result", "성공");
-		result.put("booking", booking);
+		
+		if (booking == null) {
+			// {"code":500, "error_message":"예약내역이 존재하지 않습니다."}
+			result.put("code", 500);
+			result.put("error_message", "예약내역이 존재하지 않습니다.");
+		} else {
+			result.put("code", 200);
+			result.put("result", booking);
+		}
 		
 		return result;
 	}
